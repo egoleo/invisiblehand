@@ -1,5 +1,5 @@
-# Customize here. This file is gitignored so that your passwords don't end up
-# in the public domain.
+# Copy this to local.mk and customize it. This file is gitignored so that your 
+# passwords don't end up in the public domain.
 
 BASE_URL = ih.lcl
 VHOST_DIR = /srv/www/$(BASE_URL)
