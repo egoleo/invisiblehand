@@ -1,0 +1,33 @@
+Requirements:
+-------------
+
+Before you begin, you should ensure that you have the following:
+1. Sane system with default toolchain (sed, etc.) (*)
+2. GNU make
+3. drush
+4. drush-site-install6
+5. mysql client-side tools (**)
+
+(*) It may be the case that a few things break on non-Debian systems. That is
+not intentional and I'd be happy if you can inform me about what broke and the
+system you are using so that I can fix it. Or better yet, you could fix it
+yourself and let me git pull in your changes.
+
+(**) Because of a current requirement, I'm only working on MySQL support for
+now. But in the near future I'd like to support PostgreSQL as well. As always,
+contributions are welcome.
+
+Installation
+------------
+
+You might be able to:
+% make install
+
+or you may have to:
+% su
+<type root password>
+# make install
+
+it all depends on what access rights your user has to the destination 
+directory.
+
