@@ -1,2 +1,5 @@
 .*.swp
 local.mk
+.db
+.site-install
+settings.php

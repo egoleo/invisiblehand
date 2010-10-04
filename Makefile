@@ -4,7 +4,6 @@
 SHELL = /bin/sh
 PROJECT_NAME = invisiblehand
 PROJECT_TITLE = Invisible Hand
-DRUSH = drush -r $(DRUPAL_ROOT) -y
 
 # The following are just default settings. You can override them in local.mk.
 BASE_URL = ih.lcl
@@ -25,13 +24,14 @@ ADMIN_MAIL = postmaster@ih.lcl
 include local.mk
 
 IH = $(VHOST_DIR)/$(IH_ROOT)
+DRUSH = drush -r $(IH) -y
 
 all:
 
-install: $(IH_ROOT) .db .site-install
+install: $(IH) .db .site-install
 
-$(VHOST_DIR)/$(IH_ROOT): $(VHOST_DIR)
-	drush dl drupal --destination=$(VHOST_ROOT) \
+$(IH): $(VHOST_DIR)
+	drush dl drupal --destination=$(VHOST_DIR) \
 	    --drupal-project-rename=$(IH_ROOT)
 
 $(VHOST_DIR):
@@ -48,7 +48,7 @@ settings.php: settings.php.in
 	    -e 's/_DB_NAME_/$(DB_NAME)/' \
 	    -e 's/_DB_PREFIX_/$(DB_PREFIX)/' settings.php.in > settings.php
 
-.site-install: $(DRUPAL_ROOT)/sites/default/settings.php
+.site-install: $(IH)/sites/default/settings.php
 	$(DRUSH) site-install6 --account-name=$(ADMIN) \
 	    --account-pass=$(ADMIN_PASS) \
 	    --account-mail='$(ADMIN_MAIL) \
