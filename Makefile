@@ -2,8 +2,8 @@
 # Author: Lorenzo Cabrini <lorenzo.cabrini@gmail.com>
 
 SHELL = /bin/sh
-SITE_NAME = invisiblehand
-SITE_TITLE = Invisible Hand
+SITE_NAME = newsite
+SITE_TITLE = My New Test Site
 PROJECTS = views cck features
 MODULES = content number nodereference text userreference optionwidgets \
 	  path taxonomy features views views_ui
@@ -11,7 +11,7 @@ MODULES = content number nodereference text userreference optionwidgets \
 # The following are just default settings. You can override them in local.mk.
 BASE_URL = ih.lcl
 VHOST_DIR = /srv/www/$(BASE_URL)
-IH_ROOT = htdocs
+IH_ROOT = newsite
 DB_TYPE = mysql
 DB_HOST = db.lcl
 DB_ROOT = root
@@ -19,7 +19,7 @@ DB_ROOT_PW = password
 DB_USER = ih
 DB_PASS = password
 DB_NAME = invisiblehand
-DB_PREFIX = ih_
+#DB_PREFIX = ih_  #uncomment this line if you want to enable table prefixing.
 ADMIN = admin
 ADMIN_PASS = password
 ADMIN_MAIL = postmaster@ih.lcl
@@ -27,6 +27,7 @@ ADMIN_MAIL = postmaster@ih.lcl
 include local.mk
 
 IH = $(VHOST_DIR)/$(IH_ROOT)
+#IH = $(VHOST_DIR)
 DRUSH = drush -r $(IH) -y
 
 all:
@@ -34,6 +35,7 @@ all:
 install: $(IH) .db .site-install .projects-install
 
 $(IH): $(VHOST_DIR)
+	#drush dl drupal --destination=$(VHOST_DIR)
 	drush dl drupal --destination=$(VHOST_DIR) \
 	    --drupal-project-rename=$(IH_ROOT)
 

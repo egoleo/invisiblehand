@@ -1,18 +1,20 @@
 # Copy this to local.mk and customize it. This file is gitignored so that your 
 # passwords don't end up in the public domain.
+# All options below are changeable. 
+# NOTE that the DB_ROOT, DB_ROOT_PW could be different from the project's
+# db's username and password.
 
-BASE_URL = ih.lcl
-VHOST_DIR = /srv/www/$(BASE_URL)
-IH_ROOT = htdocs
-DB_TYPE = mysql
-DB_HOST = db.lcl
-DB_ROOT = root
-DB_ROOT_PW = password
-DB_USER = ih
-DB_PASS = password
-DB_NAME = invisiblehand
-DB_PREFIX = ih_
-ADMIN = admin
-ADMIN_PASS = password
-ADMIN_MAIL = postmaster@ih.lcl
-
+BASE_URL = 	#you can put a directory name here if you want serving as ur workind directory
+VHOST_DIR = /var/www/localhost/htdocs/$(BASE_URL) #drupal project directory
+IH_ROOT = newsite	#change here to suit your project
+DB_TYPE = mysql		#drupal db type options include be postgresql and mysql
+DB_HOST = localhost	#drupal project's db hostname
+DB_ROOT = dbuser	#the root user for your mysql database
+DB_ROOT_PW = m00kaw	#the root password for your mysql database
+DB_USER = root		#the db user your project
+DB_PASS = m00kaw	#the db password for your project
+DB_NAME = lordan	#the db name for your project
+DB_PREFIX = 		#set this if you need it
+ADMIN = drupaladminusername	#drupal admin user name for drupal login	
+ADMIN_PASS = drupaladminloginpassword	#drupal admin user's password
+ADMIN_MAIL = postmaster@newsite.ld	#drupal system email

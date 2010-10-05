@@ -37,3 +37,24 @@ or you may have to:
 it all depends on what access rights your user has to the destination 
 directory.
 
+
+HOW to Install DRUSH. This was done on a gentoo system but i hope
+it works for most linux systems
+...................................
+wget http://ftp.drupal.org/files/projects/drush-6.x-3.3.tar.gz
+tar xvzf drush-6.x-3.3.tar.gz
+sudo chmod 555 drush/drush
+sudo chown -R root:root drush
+sudo mv drush /usr/local/
+sudo ln -s /usr/local/drush/drush /usr/local/bin/drush
+
+ON GENTOO
+ln -s /usr/local/drush/drush /usr/bin/drush
+sudo drush dl drush_make 
+
+you should see something like this for success
+Project drush_make (6.x-2.0-beta9) downloaded to /root/.drush/drush_make.      [success]
+
+Once drush is installed, u need to install the drush site install using the command below.
+
+drush dl drush_site_install6
