@@ -2,5 +2,5 @@
 local.mk
 .db
 .site-install
-.modules-install
+.projects-install
 settings.php

@@ -2,9 +2,11 @@
 # Author: Lorenzo Cabrini <lorenzo.cabrini@gmail.com>
 
 SHELL = /bin/sh
-PROJECT_NAME = invisiblehand
-PROJECT_TITLE = Invisible Hand
-MODULES = views cck features
+SITE_NAME = invisiblehand
+SITE_TITLE = Invisible Hand
+PROJECTS = views cck features
+MODULES = content number nodereference text userreference optionwidgets \
+	  path taxonomy features views views_ui
 
 # The following are just default settings. You can override them in local.mk.
 BASE_URL = ih.lcl
@@ -26,11 +28,10 @@ include local.mk
 
 IH = $(VHOST_DIR)/$(IH_ROOT)
 DRUSH = drush -r $(IH) -y
-MODULES_DIR = $(IH)/sites/all/modules
 
 all:
 
-install: $(IH) .db .site-install .modules-install
+install: $(IH) .db .site-install .projects-install
 
 $(IH): $(VHOST_DIR)
 	drush dl drupal --destination=$(VHOST_DIR) \
@@ -52,9 +53,9 @@ settings.php: settings.php.in
 
 .site-install: $(IH)/sites/default/settings.php
 	$(DRUSH) site-install6 --account-name=$(ADMIN) \
-	    --account-pass=$(ADMIN_PASS) \
-	    --account-mail='$(ADMIN_MAIL) \
-	    --site-name='$(PROJECT_TITLE)
+	    --account-pass='$(ADMIN_PASS)' \
+	    --account-mail='$(ADMIN_MAIL)' \
+	    --site-name='$(SITE_TITLE)'
 	touch .site-install
 
 .db:
@@ -64,13 +65,11 @@ settings.php: settings.php.in
 	    identified by '$(DB_PASS)'"
 	touch .db
 
-.modules-install: $(MODULES_DIR)
-	$(DRUSH) dl $(MODULES)
+.projects-install:
+	$(DRUSH) dl $(PROJECTS)
 	$(DRUSH)  updatedb
-	touch .modules-install
-
-$(MODULES_DIR):
-	mkdir $(MODULES_DIR)
+	$(DRUSH) pm-enable $(MODULES)
+	touch .projects-install
 
 clean:
 	rm -f settings.php
@@ -80,4 +79,4 @@ cleaner: clean
 	rm -f .db
 	rm -rf $(IH)/*
 	rm -f .site-install
-	rm -f .modules-install
+	rm -f .projects-install
