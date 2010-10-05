@@ -4,6 +4,7 @@
 SHELL = /bin/sh
 PROJECT_NAME = invisiblehand
 PROJECT_TITLE = Invisible Hand
+MODULES = views cck features
 
 # The following are just default settings. You can override them in local.mk.
 BASE_URL = ih.lcl
@@ -25,10 +26,11 @@ include local.mk
 
 IH = $(VHOST_DIR)/$(IH_ROOT)
 DRUSH = drush -r $(IH) -y
+MODULES_DIR = $(IH)/sites/all/modules
 
 all:
 
-install: $(IH) .db .site-install
+install: $(IH) .db .site-install .modules-install
 
 $(IH): $(VHOST_DIR)
 	drush dl drupal --destination=$(VHOST_DIR) \
@@ -62,6 +64,14 @@ settings.php: settings.php.in
 	    identified by '$(DB_PASS)'"
 	touch .db
 
+.modules-install: $(MODULES_DIR)
+	$(DRUSH) dl $(MODULES)
+	$(DRUSH)  updatedb
+	touch .modules-install
+
+$(MODULES_DIR):
+	mkdir $(MODULES_DIR)
+
 clean:
 	rm -f settings.php
 
@@ -70,3 +80,4 @@ cleaner: clean
 	rm -f .db
 	rm -rf $(IH)/*
 	rm -f .site-install
+	rm -f .modules-install
