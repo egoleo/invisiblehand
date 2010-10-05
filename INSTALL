@@ -20,7 +20,13 @@ contributions are welcome.
 Installation
 ------------
 
-You might be able to:
+First:
+% cp local.mk.default local.mk
+% vi local.mk
+
+Make whatever configuration changes you need to.
+
+Now you might be able to:
 % make install
 
 or you may have to:
